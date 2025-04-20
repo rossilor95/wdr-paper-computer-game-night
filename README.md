@@ -39,7 +39,7 @@ I proposed 4 challenges:
 3. Subtraction
 4. Even or Odd
 
-The challenges are available in the `challenges` folder. Each challenge is a markdown file with the description of the challenge and the solution.
+In the `challenges` directory, you can find a markdown file with the instructions for each challenge and an example solution. The challenges are designed to be solved in the order presented. The first challenge is the easiest and the last one is the hardest.
 
 
 ## Additional Resources
