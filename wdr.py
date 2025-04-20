@@ -99,15 +99,18 @@ class Interpreter:
                     self.registers[operand] += 1
                     self.program_counter += 1
                 case Opcode.DEC:
+                    if self.registers[operand] == 0:
+                        raise ValueError(
+                            f"Line {self.program_counter + 1}: Error: decrementing zero register"
+                        )
                     self.registers[operand] -= 1
                     self.program_counter += 1
                 case Opcode.JMP:
-                    if operand < 0 or operand >= len(self.instructions):
+                    if operand < 1 or operand > len(self.instructions):
                         raise ValueError(
                             f"Line {self.program_counter + 1}: Invalid jump to line {operand}"
                         )
-                    self.program_counter = operand
-                    continue
+                    self.program_counter = operand - 1
                 case Opcode.ISZ:
                     if self.registers[operand] == 0:
                         if self.program_counter + 2 < len(self.instructions):
@@ -130,7 +133,7 @@ class Interpreter:
         print(f"R3: {self.registers[Register.R3]}")
 
 
-if __name__ == "__main__":
+def main() -> None:
     parser = argparse.ArgumentParser(
         description="WDR Paper Computer Interpreter",
         epilog="Example: ./wdr.py program.asm 1 2 3 4",
@@ -154,3 +157,7 @@ if __name__ == "__main__":
 
     interpreter = Interpreter(initial_state, instructions)
     interpreter.eval()
+
+
+if __name__ == "__main__":
+    main()
